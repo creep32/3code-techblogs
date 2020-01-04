@@ -9,24 +9,11 @@ tags:
 技術の専門用語について例文とあわせてまとめています。技術情報は英語で書かれているものも多いので、英単語で直訳だとニュアンスがわからないものについてもまとめています。
 
 
-::: details Hydratio
+::: details Hydration
 
-```あいうえお```
+SSRの文脈で度々出現する単語です。実際のDOMが先にあり、そこからVirualDOMを生成するプロセスのことを指します。
 
-SSRの文脈で度々出現する単語です。
-
-> Hydration refers to the client-side process during which Vue takes over the static HTML sent by the server and turns it into dynamic DOM that can react to client-side data changes.
->
-> [Vue ssr docs](https://ssr.vuejs.org/guide/hydration.html)
-:::
-
-::: details Hydratio
-
-```あいうえお```
-
-SSRの文脈で度々出現する単語です。
-
-> Hydration refers to the client-side process during which Vue takes over the static HTML sent by the server and turns it into dynamic DOM that can react to client-side data changes.
+> `Hydration` refers to the client-side process during which Vue takes over the static HTML sent by the server and turns it into dynamic DOM that can react to client-side data changes.
 >
 > [Vue ssr docs](https://ssr.vuejs.org/guide/hydration.html)
 :::

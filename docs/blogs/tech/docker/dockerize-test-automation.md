@@ -8,7 +8,8 @@ tags:
 
 ![main image](./docker.png)
 
-「Unitテスト、IntegrationテストコードもDocker化してCI環境で動かそう！」とチームで決定したとします。なんだが簡単にできそうな気がしますが、少し深く考えてみると考慮事項がいくつかあることが見えてきます。例えば、既にアプリケーションをDockerizeしている場合は、`.dockerignore`ファイルを使いテストコードをコンテナーから除外しているのではないのかと思います。この記事ではコードベースに極力手を加えず、自動テストをDockerlizする方法を検討します。
+「Unitテスト、IntegrationテストコードもDocker化してCI環境で動かそう！」とチームで決定したとします。なんだが簡単にできそうな気がしますが、少し深く考えてみると考慮
+事項がいくつかあることが見えてきます。例えば、既にアプリケーションをDockerizeしている場合は、`.dockerignore`ファイルを使いテストコードをコンテナーから除外しているのではないのかと思います。この記事ではコードベースに極力手を加えず、自動テストをDockerlizする方法を検討します。
 
 ## Problem
 `Jenkins`などで自前のCI環境を構築し、複数プロジェクトで利用しているケースなどは良くあるかと思います。Jenkinsスレーブに各プロジェクトに必要なソフトウェアをインストールしたくない。ポートの競合が起きないようにしたい。といった場合、コンテナ技術はうってつけのソリューションです。ただし自動テストをDockerizeするうえでいくつかの考慮次項があります。
@@ -18,14 +19,17 @@ tags:
 * Integration、E2Eなど各テスト毎のコンテナ化を効率化したい
 
 ## Solution
-コードベースに余計な手を加えないためにも、Dockerのソリューションだけで解決することがポイントになります。具体的には、Dockerfileと[.dockerignore](https://docs.docker.com/engine/reference/builder/#dockerignore-file)をわけることにより実現します。加えて、各種テスト事に同セットを用意したくないので、自動テストのDockerfileは[multi stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)を併用し管理コストを最小化します。
+本Solutionの<SampleCode />です。
+
+コードベースに余計な手を加えないためにも、Dockerのソリューションだけで解決することがポイントになります。具体的には、Dockerfileと[.dockerignore](https://docs.docker.com/engine/reference/builder/#dockerignore-file)をわけることにより実現します。加えて、各種テスト毎に同セットを用意したくないので、自動テストのDockerfileは[multi stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)を併用し管理コストを最小化します。
+
 
 ::: tip Note
-このソリューションは[Stack overflow](https://stackoverflow.com/a/57774684)を参考にしています
+このSolutionは[Stack overflow](https://stackoverflow.com/a/57774684)を参考にしています
 :::
 
 ### 最終ディレクトリ構成
-<SampleCode />のアプリケーションはNodejsのExpressフレームワークで簡単なREST APIがあり、JestでUnitテスト、Integrationtテストを実装しているものとします。
+<SampleCode />のアプリケーションはNodejsのExpressフレームワークでの簡単なREST APIがあり、JestでUnitテスト、Integrationtテストを実装しています。
 .dockerignoreファイルをわけるためには、`${DOCKERFILE_NAME}.docerignore`という命名規則でファイルを配置することで、`docker build -f $DOCKERFILE_NAME ・・・`でイメージを作成すると命名規則に応じた.dockerignoreファイルがピックアップされます。
 
 最終構成は以下のようになります。
@@ -48,10 +52,10 @@ tags:
 
 自動テスト用のDockerfileは`multi stage build`を利用することで管理コストを最小化しています。
 
-<<< @/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.test{10-15,17-22}
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.test{10-15,17-22}
 
 Dockerizeされた自動テストの実行結果は以下のようになります。
-```
+```sh
 # run unit test
 $ bash docker-build-and-run.sh unit
 ・
@@ -117,13 +121,23 @@ Jesテストフレームワークでは、`__tests__`というディレクトリ
 :::
 
 #### application用
-<<< @/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.app.dockerignore{1}
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.app.dockerignore{1}
 
 #### 自動テスト用
-<<< @/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.test.dockerignore{}
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.test.dockerignore
 
 ### multi stage buildを利用している理由
 本テストではあまりメリットがありませんが、例えばE2EテストもDockerizeするとした場合、E2E用のstageを作成し、Selenimu用のヘッドレスブラウザーがインストールされたDockerイメージを作るなどの拡張が可能です。
+
+multi stage buildのDockerfileは以下のようにbuildすることが可能です。
+
+```sh
+# unit test
+docker build -f Dockerfile.test --target unit . -t $TAG
+
+# integration test
+docker build -f Dockerfile.test --target integration . -t $TAG
+```
 
 ### Dcoekr Composeでの利用
 [Dcoker Composeのbuildオプション](https://docs.docker.com/compose/compose-file/#build)を利用することでよりシンプルに管理することが可能です。以下のようなCompose fileを用意し、`$ dcoker-compose -f $COMPOSE_FILE run unit`とすることで、DockerizeされたUnitテストを実行することができます。
@@ -133,12 +147,12 @@ CI環境で実行する場合、CI環境にDocker Composeをインストール�
 :::
 
 
-<<< @/docs/sample-code/tech/docker/dockerize-test-automation/docker-compose-unit-test-sample.yml
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/docker-compose-unit-test-sample.yml
 
 ### Alternative Patterns
 単純にフォルダを切ることでも実現可能です。好みの問題になりますが、個人的にはDockerfileはルートディレクトリの直下にあるほうが直観的である点と、ディレクトリを掘り出すとディレクトリ名や階層についての考慮次項が増えるので、前述の方法を紹介しました。
 
-```
+:::vue
 .
 └── dockerfiles
     ├── app
@@ -148,7 +162,7 @@ CI環境で実行する場合、CI環境にDocker Composeをインストール�
         ├── Dockerfile
         └── .dockerignore
 
-```
+:::
 
 ## Conclusion
 自動テストを効果的にDocerlizeする方法を紹介しました。アプリケーションだけでなく、自動化プロセスや、Adminプロセスをどんどんコンテナ化しDevOpsを推し進めていきましょう！

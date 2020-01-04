@@ -4,7 +4,7 @@ var app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// respond with "hello world" when a GET request is made to the homepage
+// simple sum calculation
 app.post('/sum', function (req, res) {
   console.log(req.body)
   const ret = require('./lib/sum')(req.body.a, req.body.b)

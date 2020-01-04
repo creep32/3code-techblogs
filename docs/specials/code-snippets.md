@@ -14,9 +14,3 @@ tags:
 Object.assign({}, {a:1, b:2}
 ```
 :::
-
-::: details merege two object
-```javascript
-Object.assign({}, {a:1, b:2}
-```
-:::
