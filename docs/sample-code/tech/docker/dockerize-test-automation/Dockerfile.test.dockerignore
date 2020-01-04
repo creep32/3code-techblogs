@@ -1,0 +1,6 @@
+README.md
+env.*
+.git
+.gitignore
+package-lock.json
+package.json

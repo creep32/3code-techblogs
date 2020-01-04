@@ -1,0 +1,96 @@
+@startuml{sequence_receive.png}
+
+hide footbox
+
+participant "A-Auto" as aauto
+participant "バックアップバッチスクリプト" as backup_script
+participant "データ処理バッチスクリプト" as data_processing_script
+participant "IFバッチスクリプト" as if_script
+participant "IICS" as iics
+participant "受信用バケット" as s3_receive
+participant "作業用バケット" as s3_work
+database "IFテーブル" as db
+
+group バックアップバッチ
+  aauto -> backup_script : ジョブ実行
+  activate aauto
+    activate backup_script
+    backup_script -> s3_receive : IFファイルバックアップ
+      activate s3_receive
+      s3_receive -> s3_receive : IFファイルバックアップ
+      activate s3_receive
+      deactivate s3_receive
+      backup_script <-- s3_receive
+      deactivate s3_receive
+    backup_script -> s3_receive : IFファイル移動(この時<HULFT_ID>のファイル名から、<if_name>に変更) ※オブジェクトの所有者に留意
+      activate s3_receive
+      s3_receive -> s3_work : IFファイル移動
+        activate s3_work
+        s3_receive <-- s3_work
+        deactivate s3_work
+      backup_script <-- s3_receive
+      deactivate s3_receive
+    aauto <-- backup_script : Exit 0
+    deactivate backup_script
+  deactivate aauto
+end
+group データ処理バッチ
+  aauto -> data_processing_script : ジョブ実行
+  activate aauto
+    activate data_processing_script
+    data_processing_script -> iics : ログイン
+    note right : ID, Password
+      activate iics
+      data_processing_script <-- iics : セッションID
+      deactivate iics
+    data_processing_script -> iics : ETLプログラムのパラメータ更新
+      activate iics
+      data_processing_script <-- iics
+      deactivate iics
+    data_processing_script ->> iics : ETLプログラムの実行
+      activate iics
+      data_processing_script <<-- iics : ジョブID
+      iics -> s3_work : IFファイルダウンロード
+        activate s3_work
+        iics <-- s3_work : IFファイル
+        deactivate s3_work
+      iics -> iics : 変換処理
+      activate iics
+      deactivate iics
+      iics -> db : IFテーブル書き込み
+        activate db
+        iics <-- db
+        deactivate db
+      deactivate iics
+    loop 10秒間隔
+      data_processing_script -> iics : ETLプログラムの実行結果確認
+        activate iics
+        data_processing_script <-- iics : 実行結果
+        deactivate iics
+    end
+    alt ETLプログラム成功
+      data_processing_script -> s3_work : IFファイル削除
+        activate s3_work
+        data_processing_script <-- s3_work
+        deactivate s3_work
+      aauto <-- data_processing_script : Exit 0
+    else ETLプログラム失敗
+      data_processing_script -> db : レコード削除
+        activate db
+        data_processing_script <- db
+        deactivate db
+      aauto <-- data_processing_script : Exit 9
+    end
+  deactivate data_processing_script
+  deactivate aauto
+end
+group IFバッチ
+  aauto -> if_script : ジョブ実行
+  activate aauto
+  activate if_script
+    ref over if_script, db : IFバッチ定義書参照
+    aauto <-- if_script
+  deactivate if_script
+  deactivate aauto
+end
+@enduml

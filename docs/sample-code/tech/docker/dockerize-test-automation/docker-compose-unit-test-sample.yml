@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  unit:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      target: unit
+    container_name: unit-test

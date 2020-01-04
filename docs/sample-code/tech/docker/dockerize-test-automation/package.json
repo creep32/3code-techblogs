@@ -1,0 +1,25 @@
+{
+  "name": "3code-Tech-Blogcode-exaples_dockerize-test-automation",
+  "author": {
+    "name": "Shintaro Kurihara",
+    "email": "kuri.creep.kuri@gmail.com",
+    "url": "https://tech-blog.3code.dev"
+  },
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js",
+    "test:unit": "jest --testPathIgnorePatterns integration-test/",
+    "test:integration": "jest integration-test"
+  },
+  "dependencies": {
+    "express": "~4.16.1"
+  },
+  "devDependencies": {
+    "axios": "^0.19.0",
+    "jest": "^24.9.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
