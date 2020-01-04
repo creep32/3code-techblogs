@@ -6,3 +6,9 @@ services:
       dockerfile: Dockerfile.test
       target: unit
     container_name: unit-test
+  integration:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      target: integration
+    container_name: integration-test

@@ -11,7 +11,7 @@ tags:
 
 ::: details Hydration
 
-SSRの文脈で度々出現する単語です。実際のDOMが先にあり、そこからVirualDOMを生成するプロセスのことを指します。
+SSRの文脈で度々出現する単語です。実際のDOMが先にあり、そこから Virtual DOMを生成するプロセスのことを指します。
 
 > `Hydration` refers to the client-side process during which Vue takes over the static HTML sent by the server and turns it into dynamic DOM that can react to client-side data changes.
 >

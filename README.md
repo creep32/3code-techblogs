@@ -1,6 +1,6 @@
 # 3code-tech-blog src
 
-[3code Tech Blogs](https://tech-blog.3code.dev) is my blog.
+[3code Tech Blog](https://tech-blog.3code.dev) is my blog.
 
 This repository contains source markdown, and sample codes.
 

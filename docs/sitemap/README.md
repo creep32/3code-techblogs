@@ -16,6 +16,6 @@ editLink: false
 
 ## About
 * [プロフィール](/about/me)
-* [サイトについて](/about/me.html#_3code-techblog-について)
+* [サイトについて](/about/me.html#_3code-tech%20blog-について)
 
 

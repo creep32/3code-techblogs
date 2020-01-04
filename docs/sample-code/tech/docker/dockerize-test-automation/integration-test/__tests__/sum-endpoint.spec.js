@@ -1,6 +1,7 @@
 const axios = require('axios')
 const { spawn } = require('child_process')
 
+// Unrecommended setup and teardown
 let proc;
 beforeAll(async () => {
   proc = spawn("node", [`${process.cwd()}/app.js`])
