@@ -5,9 +5,9 @@
 This repository contains source markdown, and sample codes.
 
 ## Directory Structure
-* `/en/blogs/tech/**` contains English Post
-* `/blogs/tech/**` contains Japanese Post
-* `/sample-code/**` contains sample-code written by English for the both language.
+* `/docs/en/blogs/tech/**` contains English Post source
+* `/docs/blogs/tech/**` contains Japanese Post source
+* `/docs/sample-code/**` contains sample-code written by English for the both language.
 
 ```
 docs/
@@ -28,7 +28,7 @@ docs/
 
 For exmaple. docker test automation article's sample codes
 ```
-.
+docs/
 ├── blogs
 │   └── tech
 │       └── docker
