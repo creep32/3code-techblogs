@@ -12,15 +12,13 @@ tags:
 事項がいくつかあることが見えてきます。例えば、既にアプリケーションをDockerizeしている場合は、`.dockerignore`ファイルを使いテストコードをコンテナから除外しているのではないのかと思います。この記事ではコードベースに極力手を加えず、自動テストをDockerlizeする方法を検討します。
 
 ## Problem
-Jenkins等で自前のCI環境を構築し、複数プロジェクトで利用しているケースは良くあるかと思います。Jenkinsスレーブに各プロジェクトに必要なソフトウェアをインストールしたくない。ポートの競合が起きないようにしたい。といった場合、コンテナ技術はうってつけのソリューションです。ただし自動テストもDockerizeしようとすると追加の考慮次項が発生します。
+Jenkins等で自前のCI環境を構築し、複数プロジェクトで共有しているケースは良くあるかと思います。Jenkinsスレーブに各プロジェクトに必要なソフトウェアをインストールしたくない。ポートの競合が起きないようにしたい。といった場合、コンテナ技術はうってつけのソリューションです。ただし自動テストもDockerizeしようとすると追加の考慮次項が発生します。
 
 * Dockerイメージを最小化するため、アプリケーション用コンテナからはテストコードを除外したい
 * 開発の生産性を損なわぬようコードべースには余計な手を加えたくない
 * Integration、E2Eなど各テスト毎のコンテナ化を効率化したい
 
-::: tip NOTE
-本記事の実装コードは<SampleCode text="Github" />で確認できます。
-:::
+<SampleCodeNote />
 
 ## Solution
 コードベースに余計な手を加えないためにも、Dockerの機能だけで解決することがポイントになります。具体的にはDockerfileと[.dockerignore](https://docs.docker.com/engine/reference/builder/#dockerignore-file)をわけることにより実現します。加えて、各種テスト毎にこれらのセットを用意したくないので、自動テストのDockerfileは[multi stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)を利用することで管理コストを最小化します。
