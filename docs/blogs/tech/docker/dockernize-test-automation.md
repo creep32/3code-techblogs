@@ -1,5 +1,5 @@
 ---
-title: 自動テストを効率的にDockerizeするためのDockerfile構成
+title: 自動テストを効率的にDockernizeするためのDockerfile構成
 date: 2020-01-02 18:12:31
 tags:
   - DevOps
@@ -9,10 +9,10 @@ tags:
 ![main image](./docker.png)
 
 「Unitテスト、IntegrationテストコードもDocker化してCI環境で動かそう！」とチームで決定したとします。なんだが簡単にできそうな気がしますが、少し深く考えてみると考慮
-事項がいくつかあることが見えてきます。例えば、既にアプリケーションをDockerizeしている場合は、`.dockerignore`ファイルを使いテストコードをコンテナから除外しているのではないのかと思います。この記事ではコードベースに極力手を加えず、自動テストをDockerlizeする方法を検討します。
+事項がいくつかあることが見えてきます。例えば、既にアプリケーションをDockernizeしている場合は、`.dockerignore`ファイルを使いテストコードをコンテナから除外しているのではないのかと思います。この記事ではコードベースに極力手を加えず、自動テストをDockernizeする方法を検討します。
 
 ## Problem
-Jenkins等で自前のCI環境を構築し、複数プロジェクトで共有しているケースは良くあるかと思います。Jenkinsスレーブに各プロジェクトに必要なソフトウェアをインストールしたくない。ポートの競合が起きないようにしたい。といった場合、コンテナ技術はうってつけのソリューションです。ただし自動テストもDockerizeしようとすると追加の考慮次項が発生します。
+Jenkins等で自前のCI環境を構築し、複数プロジェクトで共有しているケースは良くあるかと思います。Jenkinsスレーブに各プロジェクトに必要なソフトウェアをインストールしたくない。ポートの競合が起きないようにしたい。といった場合、コンテナ技術はうってつけのソリューションです。ただし自動テストもDockernizeしようとすると追加の考慮次項が発生します。
 
 * Dockerイメージを最小化するため、アプリケーション用コンテナからはテストコードを除外したい
 * 開発の生産性を損なわぬようコードべースには余計な手を加えたくない
@@ -21,7 +21,7 @@ Jenkins等で自前のCI環境を構築し、複数プロジェクトで共有�
 <SampleCodeNote />
 
 ## Solution
-コードベースに余計な手を加えないためにも、Dockerの機能だけで解決することがポイントになります。具体的にはDockerfileと[.dockerignore](https://docs.docker.com/engine/reference/builder/#dockerignore-file)をわけることにより実現します。加えて、各種テスト毎にこれらのセットを用意したくないので、自動テストのDockerfileは[multi stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)を利用することで管理コストを最小化します。
+コードベースに余計な手を加えないためにも、Dockerの機能だけで解決することがポイントになります。具体的にはDockerfileと[.dockerignore](https://docs.docker.com/engine/reference/builder/#dockerignore-file)を実行対象単位で分割することで実現します。加えて、テストの種別毎にこれらのセットを用意したくないので、自動テストのDockerfileは[multi stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)を利用することで管理コストを最小化します。
 
 このソリューションは[Stack overflow](https://stackoverflow.com/a/57774684)を参考にしています
 
@@ -49,9 +49,9 @@ Jenkins等で自前のCI環境を構築し、複数プロジェクトで共有�
 
 自動テスト用のDockerfileは`multi stage builds`を利用することで管理コストを最小化しています。
 
-<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.test{10-15,17-22}
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockernize-test-automation/Dockerfile.test{10-15,17-22}
 
-Dockerizeされた自動テストの実行結果は以下のようになります。
+Dockernizeされた自動テストの実行結果は以下のようになります。
 ```sh
 # run unit test
 $ bash docker-build-and-run.sh unit
@@ -60,7 +60,7 @@ $ bash docker-build-and-run.sh unit
 Successfully built 78fccf9aa415
 Successfully tagged 3code/unit-test:latest
 
-> 3code-Tech-Blogcode-exaples_dockerize-test-automation@1.0.0 test:unit /opt/app
+> 3code-Tech-Blogcode-exaples_dockernize-test-automation@1.0.0 test:unit /opt/app
 > jest --testPathIgnorePatterns integration-test/
 
 PASS lib/__tests__/sum.spec.js
@@ -82,7 +82,7 @@ $ bash docker-build-and-run.sh integration
 Successfully built 481fa0bfe4b9
 Successfully tagged 3code/intregration:latest
 
-> 3code-Tech-Blogcode-exaples_dockerize-test-automation@1.0.0 test:integration /opt/app
+> 3code-Tech-Blogcode-exaples_dockernize-test-automation@1.0.0 test:integration /opt/app
 > jest integration-test
 
 PASS integration-test/__tests__/sum-endpoint.spec.js
@@ -111,25 +111,25 @@ node                 12.14.0-alpine3.11   1cbcaddb8074        10 days ago       
 
 以下がIntegrationテストコードです。あまり適切ではありませんが、[Setup and Teardonw](https://jestjs.io/docs/ja/setup-teardown)を使いREST APIの起動、停止を行っています。
 
-<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/integration-test/__tests__/sum-endpoint.spec.js
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockernize-test-automation/integration-test/__tests__/sum-endpoint.spec.js
 
-現実のアプリケーションではDocker Compose等を利用し、DBなどのバックエンドサービスをあわせて起動することになると思います。より現実に近い自動テストのDockerizeについても別の記事で紹介する予定です。
+現実のアプリケーションではDocker Compose等を利用し、DBなどのバックエンドサービスをあわせて起動することになると思います。より現実に近い自動テストのDockernizeについても別の記事で紹介する予定です。
 
 ### .dockerignoreの詳細
 アプリケーションのイメージからはテストコードを除外しています。各自動テストのイメージはUnitテスト、Integrationテストで同じDockerfileを利用しています。Dockerfile、 .dockerignoreをさらに細分化することで、それぞれのテストに必要なテストコードのみイメージに焼きこむことも可能ですが、管理コストとのトレードオフで自動テストは１つのDockerfileにまとめ、`multi stage builds`の恩恵を受けられるようにしています。
 
 #### アプリケーション用
-<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.app.dockerignore{1}
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockernize-test-automation/Dockerfile.app.dockerignore{1}
 
 #### 自動テスト用
-<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/Dockerfile.test.dockerignore
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockernize-test-automation/Dockerfile.test.dockerignore
 
 ::: tip NOTE
 Jesテストフレームワークでは、`__tests__`ディレクトリにテストコードを配置するのが慣習です
 :::
 
 ### multi stage buildsを利用している理由
-本サンプルではあまりメリットがありませんが、例えばE2EテストもDockerizeするとした場合、E2E用のstageを作成し、Selenimu用のヘッドレスブラウザーがインストールされたDockerイメージを作るなどの拡張が可能です。
+本サンプルではあまりメリットがありませんが、例えばE2EテストもDockernizeするとした場合、E2E用のstageを作成し、Selenimu用のヘッドレスブラウザーがインストールされたDockerイメージを作るなどの拡張が可能です。
 
 multi stage buildsのDockerfileは以下のようにビルドすることが可能です。
 
@@ -142,9 +142,9 @@ docker build -f Dockerfile.test --target integration . -t $TAG
 ```
 
 ### Dcoekr Composeでの利用
-[Dcoker Composeのbuildオプション](https://docs.docker.com/compose/compose-file/#build)を利用することで、ビルドと実行を一括で行うことが可能です。以下のようなCompose fileを用意し、`$ dcoker-compose -f $COMPOSE_FILE run [unit|integration]`とすることで、Dockerizeされた自動テストを実行することができます。Docker Composeが使える環境であればより現実的なオプションになります。
+[Dcoker Composeのbuildオプション](https://docs.docker.com/compose/compose-file/#build)を利用することで、ビルドと実行を一括で行うことが可能です。以下のようなCompose fileを用意し、`$ dcoker-compose -f $COMPOSE_FILE run [unit|integration]`とすることで、Dockernizeされた自動テストを実行することができます。Docker Composeが使える環境であればより現実的なオプションになります。
 
-<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockerize-test-automation/docker-compose.yaml
+<<< @/3code-tech-blog/docs/sample-code/tech/docker/dockernize-test-automation/docker-compose.yaml
 
 ::: warning
 CI環境で実行する場合、CI環境にDocker Composeをインストールする必要があります
