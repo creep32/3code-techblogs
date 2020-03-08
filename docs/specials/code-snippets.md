@@ -9,8 +9,18 @@ tags:
 よく使うけどなんだかんだ毎回調べているコードのスニペットについて参考先と併せてまとめています。このてのスニペットには複数の選択肢があるので、個人的にベストプラクティスだと思うものをピックアップして記載しています。よりよいプラクティスがあれば[ご連絡お願いします](/contact/)。
 
 ## javascripts
-::: details merege two object
-```javascript
-Object.assign({}, {a:1, b:2}
+::: details Loop Key with Value of Object
+```js
+for (let [key, value] of Object.entries(obj)) {
+  ...
+}
 ```
 :::
+
+## Linux
+::: details get pid from process name
+```sh
+$ pidof dockerd
+```
+:::
+

@@ -6,9 +6,9 @@ tags:
 ---
 
 # 技術用語集
-技術の専門用語について例文とあわせてまとめています。技術情報は英語で書かれているものも多いので、英単語で直訳だとニュアンスがわからないものについてもまとめています。
+技術の専門用語について例文とあわせてまとめています。技術情報は英語で書かれているものも多いので、英単語の直訳だとニュアンスがわからないものを中心まとめています。
 
-::: details Hydration
+::: details hydration
 
 SSRの文脈で度々出現する単語です。実際のDOMが先にあり、そこから Virtual DOMを生成するプロセスのことを指します。
 
@@ -17,12 +17,6 @@ SSRの文脈で度々出現する単語です。実際のDOMが先にあり、�
 > [Vue ssr docs](https://ssr.vuejs.org/guide/hydration.html)
 :::
 
-:::  details silo
-システムや組織がそれぞれ連携をとらず、(自己中心的に）孤立しているような状態。 [ITmedia](https://www.itmedia.co.jp/im/articles/0609/30/news018.html)
->  The slow, systematic practice of gathering requirements, holding meetings, and developing in `silos` is not in step with the pace of technology today
->
-> [Github innersource article](https://resources.github.com/whitepapers/introduction-to-innersource/)
-
 ::: details innersource
 Open Sourceの開発プラクティスを、組織に採用すること。ソフトウェア開発プロセスだけでなく、組織文化も対象となる。
 [Github article](https://resources.github.com/whitepapers/introduction-to-innersource/)
@@ -30,3 +24,11 @@ Open Sourceの開発プラクティスを、組織に採用すること。ソフ
 > Leading companies like PayPal, Bloomberg, and Walmart use `innersource` to build software for their teams and their customers
 >
 > [Github innersource article](https://resources.github.com/whitepapers/introduction-to-innersource/)
+:::
+
+:::  details silo
+システムや組織がそれぞれ連携をとらず、(自己中心的に）孤立しているような状態。 [ITmedia](https://www.itmedia.co.jp/im/articles/0609/30/news018.html)
+>  The slow, systematic practice of gathering requirements, holding meetings, and developing in `silos` is not in step with the pace of technology today
+>
+> [Github innersource article](https://resources.github.com/whitepapers/introduction-to-innersource/)
+:::
