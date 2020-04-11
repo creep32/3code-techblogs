@@ -1,0 +1,20 @@
+{
+  "name": "ghe",
+  "version": "1.0.0",
+  "description": "Command line interface for GitHub Configuration",
+  "bin": {
+    "ghe": "bin/ghe.js"
+  },
+  "keywords": [],
+  "author": "Shintaro Kurihara",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "chalk": "^3.0.0",
+    "cli-table": "^0.3.1",
+    "commander": "^5.0.0",
+    "js-base64": "^2.5.2",
+    "leven": "^3.1.0",
+    "strip-ansi": "^6.0.0"
+  }
+}
