@@ -1,8 +1,8 @@
 # overview
-dockerized nodejs test automation
+dockernized nodejs test automation
 
-The more deital is described here.
-* [japanese](https://tech-blog.3code.dev/blogs/tech/docker/dockerize-test-automation.html)
+The more deitals is described here.
+* [japanese](https://tech-blog.3code.dev/blogs/tech/docker/dockernize-test-automation.html)
 
 
 ## how to execute

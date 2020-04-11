@@ -1,7 +1,7 @@
 ---
 title: カスタムDcokerイメージをタグ付けすることなくdocker runで実行する
 date: 2020-03-08 08:20:03
-タグs:
+tags:
   - DevOps
 ---
 
