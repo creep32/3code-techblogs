@@ -31,7 +31,7 @@ Type Scriptは利用しません。個人的にな嗜好ですが言語のメタ
 * Write once, run anywhere
     * 追加のMW(SonarQube)や、特定の状況(IDEの機能）に依存しない。ローカルで完結し、CIでも同じプロセスを使える
 
-最終結果のみ記載します。各項目の詳細の説明は[Discusion](#Discusion)の章で説明します。
+最終結果のみ記載します。各項目の詳細の説明は[Discusion](#discusion)の章で説明します。
 
 1. **[nvm](https://github.com/nvm-sh/nvm)を使い、[.nvmrc](https://github.com/nvm-sh/nvm#nvmrc)でnodeのバージョンを固定**
 
@@ -65,7 +65,7 @@ Type Scriptは利用しません。個人的にな嗜好ですが言語のメタ
 
 1. **[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)でコミットメッセージ体系化する**
 
-    <small>コミット履歴が体系化されることに加え、CHANGELOGも自動生成することができます。[メッセージのLinting](#Lint-Conventional-Commits)も実施します。</small>
+    <small>コミット履歴が体系化されることに加え、CHANGELOGも自動生成することができます。[メッセージのLinting](#lint-conventional-commits)も実施します。</small>
 
 1. **Githookによる自動チェック**
 
@@ -91,14 +91,14 @@ Type Scriptは利用しません。個人的にな嗜好ですが言語のメタ
 
 1. **VScode Setup**
 
-    <small>[Workspace recommended extensions](https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions)でExtensionsをチームで共有。[Jestのための設定](#Jestのための設定)も追加します</small>
+    <small>[Workspace recommended extensions](https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions)でExtensionsをチームで共有。[Jestのための設定](#jestのための設定)も追加します</small>
 
     <<< @/3code-tech-blog/docs/sample-code/tech/javascript/nodejs-development/.vscode/extensions.json
 
 1. ドキュメントは[VuePress](https://vuepress.vuejs.org/)で管理
 
 ## Discusion
-[Solutionの章](#Solution)の 各項目について詳細を説明してきます。なかなかのボリュームになっているので、必要な項目だけでも参考にしていただければ幸いです。
+[Solutionの章](#solution)の 各項目について詳細を説明してきます。なかなかのボリュームになっているので、必要な項目だけでも参考にしていただければ幸いです。
 
 本テーマは`ミニマム`である。ということなので、極力OSSの資産をOOTBで活用します。また、例えばコードスタイルのLintingではESLintと(Prettier)[https://prettier.io/]の組み合わせが主流ですが、個人的にはToo muchだと思っているのと、補助ツールが増えると設定が肥大化して、コートベースの威圧感が強くなるので採用していません。
 
