@@ -5,8 +5,17 @@ tags:
   - code snippets
 ---
 
-# コードスニペット集
-よく使うけどなんだかんだ毎回調べているコードのスニペットについて参考先と併せてまとめています。このてのスニペットには複数の選択肢があるので、個人的にベストプラクティスだと思うものをピックアップして記載しています。よりよいプラクティスがあれば[ご連絡お願いします](/contact/)。
+<div v-if="$lang === 'ja'">
+<h1>コードスニペット集</h1>
+<p>
+よく使うけどなんだかんだ毎回調べているコードのスニペットについてまとめています。このてのスニペットには複数の選択肢があるので、個人的にベストプラクティスだと思うものをピックアップして記載しています。よりよいプラクティスがあれば<router-link :to="'/contact/'">ご連絡お願いします</router-link>。
+</p>
+</div>
+<div v-if="$lang === 'en-US'">
+<h1>Code Snipets Often Used</h1>
+<p>The Code snipets I often used when develop, operation and more. </p>
+<p>If you have better practices, please <router-link :to="'/en/contact/'">keep in touch with me.</router-link></p>
+</div>
 
 ## javascripts
 ::: details Loop Key with Value of Object

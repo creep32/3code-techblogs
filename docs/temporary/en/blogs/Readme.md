@@ -1,0 +1,5 @@
+---
+showPageEdit: false
+---
+
+<BlogPostList />
