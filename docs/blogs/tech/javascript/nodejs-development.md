@@ -58,8 +58,13 @@ Type Scriptは利用しません。個人的嗜好ですが、プログラミン
 1. **[ESLint](https://eslint.org/)でCode Styleを強制**
 
     <small>ミニマム設定として以下になります。Airbnn Style, Jestの設定も追加されます</small>
-
+   
    <<< @/3code-tech-blog/docs/sample-code/tech/javascript/nodejs-development/.eslintrc.js
+   
+   <small>`.eslintignore`で、node_modules等を除外します</small>
+
+   <<< @/3code-tech-blog/docs/sample-code/tech/javascript/nodejs-development/.eslintignore
+
 
 1. **Jestでユニットテスト**
 
@@ -504,6 +509,10 @@ $ echo $?
 130
 
 ```
+#### `.eslintignore`で除外対象を指定
+リポジトリーのルートに`.eslintignore`ファイルを用意することで、除外対象を指定できます。最低でもnode_modulesは除外しましょう。
+
+<<< @/3code-tech-blog/docs/sample-code/tech/javascript/nodejs-development/.eslintignore
 
 ### Jestでユニットテスト
 
