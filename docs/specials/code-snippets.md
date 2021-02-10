@@ -26,6 +26,27 @@ for (let [key, value] of Object.entries(obj)) {
 ```
 :::
 
+## One-Liner
+::: details Rscript
+```
+# percentile
+$ seq 1 10 | docker run --rm -i r-base Rscript -e 'round(quantile (as.numeric (readLines ("stdin")), c(.80, .90, .99)), 2)' -
+ 80%  90%  99%
+8.20 9.10 9.91
+
+# summary
+$ seq 1 10 | docker run --rm -i r-base Rscript -e 'round(summary (as.numeric (readLines ("stdin"))), 1)' -
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+    1.0     3.2     5.5     5.5     7.8    10.0
+
+# standard deviation
+$ seq 1 10 | docker run --rm -i r-base Rscript -e 'round(sd (as.numeric (readLines ("stdin"))), 4)' -
+[1] 3.0277
+```
+:::
+
+
+
 ## Linux
 ::: details tail and head
 `tail` `-n, --lines=K`
