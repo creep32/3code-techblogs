@@ -18,16 +18,16 @@ Webアプリ、CLI、バッチ等の開発者対象に、3code流Nodejsミニマ
 <SampleCodeNote />
 
 ## Solution
-そこでミニマムかつ網羅性のある開発アーキを紹介します。
+それでは、3code流Nodejsミニマム開発アーキの決定版を紹介します。
 
 Type Scriptは利用しません。個人的嗜好ですが、プログラミング言語のメタ拡張が基本好きになれないので。
 
 以下の点に重点を置いています。
 
 * 可能な限り有名OSSのプラクティスを参考
-    * チームメンバーが仕事をしつつ一般的なプラクティスを学べる環境作り
+    * チームメンバーが仕事の中で一般的なプラクティスを学べる環境作り
 * ドキュメントがしっかりしているツール群を採用
-    * ドキュメンティングコストを最小化する（社内ドキュメントがリンク集で済むようにする）
+    * ドキュメンティングのコストを最小化する（社内ドキュメントがリンク集で済むようにする）
 * Write once, run anywhere
     * 追加のMW(SonarQube)や、特定の状況(IDEの機能）に依存しない。ローカルで完結し、CIでも同じプロセスを使える
 
@@ -40,7 +40,7 @@ Type Scriptは利用しません。個人的嗜好ですが、プログラミン
 1. **Config, Secret管理には[node-config](https://github.com/lorenwest/node-config)を採用**
 
     <small>以下のように、慣れ親しんだ形で設定を管理することができます。</small>
-    
+
     ::: vue
     i$PROJECT_ROOT/config/
     ├── custom-environment-variables.js *(環境変数から注入する変数の定義)*
@@ -58,9 +58,9 @@ Type Scriptは利用しません。個人的嗜好ですが、プログラミン
 1. **[ESLint](https://eslint.org/)でCode Styleを強制**
 
     <small>ミニマム設定として以下になります。Airbnn Style, Jestの設定も追加されます</small>
-   
+
    <<< @/3code-tech-blog/docs/sample-code/tech/javascript/nodejs-development/.eslintrc.js
-   
+
    <small>`.eslintignore`で、node_modules等を除外します</small>
 
    <<< @/3code-tech-blog/docs/sample-code/tech/javascript/nodejs-development/.eslintignore
@@ -105,7 +105,7 @@ Type Scriptは利用しません。個人的嗜好ですが、プログラミン
 ## Discusion
 [Solutionの章](#solution)の 各項目について詳細を説明してきます。なかなかのボリュームになっているので、必要な項目だけでも参考にしていただければ幸いです。
 
-本テーマは`ミニマム`である。ということなので、極力OSSの資産をOOTBで活用します。また、例えばコードスタイルのLintingではESLintと(Prettier)[https://prettier.io/]の組み合わせが主流ですが、個人的にはToo muchだと思っているのと、補助ツールが増えると設定が肥大化して、コートベースの威圧感が強くなるので採用していません。
+本テーマは`ミニマム`である。ということなので、極力OSSの資産をOOTBで活用します。また、例えばコードスタイルのLintingではESLintと[Prettier](https://prettier.io/)の組み合わせが主流ですが、個人的にはToo muchだと思っているのと、補助ツールが増えると設定が肥大化して、コートベースの威圧感が強くなるので採用していません。
 
 
 ### nvmを使い、.nvmrcでnodeのバージョンを固定
@@ -223,7 +223,7 @@ $ NODE_ENV=production DB_PASS=prod-password node scripts/node-config.js
 #### Frontendでの利用
 ここで、Frontendはどうすればいいの？という疑問がでてくるのではないでしょうか。本ブログは[Vue.js](https://jp.vuejs.org/index.html)を推しているので、前述した[Vue CLI](https://cli.vuejs.org/)との統合方法を紹介します。
 
-node-configのwikiの[Webpack Usage](https://github.com/lorenwest/node-config/wiki/Webpack-Usage)の答えがあるのですが、これのOption 1で実装します。これはWebpackの[DefinePlugin](https://webpack.js.org/plugins/define-plugin/)によって、Configの設定値をビルド時にグローバルスコープの定数として埋め込み、コード内で利用できるようにしてくれます。
+node-configのwikiの[Webpack Usage](https://github.com/lorenwest/node-config/wiki/Webpack-Usage)に答えがあるのですが、これのOption 1で実装します。これはWebpackの[DefinePlugin](https://webpack.js.org/plugins/define-plugin/)によって、Configの設定値をビルド時にグローバルスコープの定数として埋め込み、コード内で利用できるようにしてくれます。
 
 Vue CLIでは[Webpackの設定を拡張](https://cli.vuejs.org/guide/webpack.html)することができます。[GitHub](https://github.com/vuejs/vue-cli/issues/1647#issuecomment-459650275)でのQAを参考に実装を行ってみます。
 
@@ -289,7 +289,7 @@ FrontendもBackendも同じ管理の仕組みを採用することで、`どこ�
 
 コードスタイルを選ぶうえで以下を重視しています
 
-* 理由を含め記載されているドキュメントが完備されている
+* ルールの根拠を含め記載されているドキュメントが完備されている
 * Lintingの設定が付属している
 * 一般的に普及している(開発者が勉強する価値がある)
 
@@ -297,12 +297,12 @@ FrontendもBackendも同じ管理の仕組みを採用することで、`どこ�
 
 謎の車輪の再発名をせず、ワールドワイドに普及しているプラクティスを採用しましょう。
 
-結果`Airbnb Style Guide` を採用します。なぜかというと、[GitHub](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base)をみてもらうとわかるように、コントリビュータの数が多いことと、**なりよりも[ガイド](https://github.com/airbnb/javascript)が充足** しており、各言語の[翻訳](https://github.com/airbnb/javascript#translation)があることです。もーこれだけで自前のコードフォーマットガイドの作成が不要になります。もし変更点があるのであれば、そこだけを社内のドキュメントに注記すればよいのです。
+結果`Airbnb Style Guide` を採用します。なぜかというと、[GitHub](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base)をみてもらうとわかるように、コントリビュータの数が多いことと、**なりよりも[ガイド](https://github.com/airbnb/javascript)が充足** しており、各言語の[翻訳](https://github.com/airbnb/javascript#translation)があることです。これだけで自前のコードフォーマットガイドの作成が不要になります。もしカスタマイズ点があるのであれば、そこだけを社内のガイドに注記すればよいのです。
 
 ### EditorConfigでエディターレベルでTextフォーマットを強制
 もはや説明も不要かもしれませんが、Textフォーマットは[EditorConfig](https://editorconfig.org/)を使ってEditorに強制させましょう。
 
-`$PROJECT_ROOT/.editorconfig`というファイルをGitにコミットしておけば、各々のEditor、IDEで同設定のTextのフォーマットでの編集が可能で、チーム間でも簡単に共有できます。
+`$PROJECT_ROOT/.editorconfig`というファイルをGitにコミットしておけば、各々のEditor、IDEで同設定でのTextのフォーマットでの編集が可能で、チーム間でも簡単に共有できます。
 
 まだチームの導入していないなら、TextフォーマットはEditorConfigを使う。という文化を一刻も早く取り入れましょう。まちがっても、開発環境セットアップガイドにIDEのEditor設定をキャプチャーを貼るような愚行は避けましょう。
 
@@ -358,10 +358,16 @@ Successfully created .eslintrc.js file in /home/3code/nodejs-development
 前項で説明したとおり、`Airbnb` を選択します。
 
 #### `? What format do you want your config file to be in?`
-`JavaScript`をお勧めします。有名どころをみていてもJavascriptかJsonが多いので、コピペのしやすさからいずれかの選択肢になりますが、Javascript出かけたほうがquoteをしなくてよい分記述量が減るのでJavascriptをお勧めします。なんとなく`Yaml`にしがちですが、その誘惑に負けないようにしましょう。
+ESLintの設定ファイルのフォーマットを以下の3つから選びます。
+
+* Javascript
+* JSON
+* YAML
+
+`JavaScript`をお勧めします。有名OSSどころを見ていてもJavascriptかJsonが多いので、コピペのしやすさからいずれかの選択肢になりますが、Javascriptであれば、keyにquoteをしなくてよい分記述量が減るのでJavascriptをお勧めします。
 
 #### 実行方法
-ここではCLIでの実行方法を説明します。CI処理と統合する際の参考にしてください。Gitアクティビティとの統合については後の章で紹介します。
+CLIでの実行方法を説明します。CI処理と統合する際の参考にしてください。GitアクティビティをHookに実行する方法については後の章で紹介します。
 
 以下2つのjsスクリプトを例にとります。
 
@@ -372,7 +378,7 @@ const foo = 'with semicolon';
 process.stdout.write(`${foo}\n`);
 ```
 
-`no_good.js`: 問題あり
+`no_good.js`: 問題あり: 1行目に末尾のセミコロンが抜けており、2行目はインデントがずれています。
 ```js
 const bar = 'missing semicolon'
 
@@ -407,7 +413,7 @@ $ npx eslint . --ext .js --fix
 
 ```
 
-すると以下のように、semicolonが付与され、インデントのずれがFixされます。
+すると以下のように、セミコロンが付与され、インデントのずれがFixされます。
 
 ```diff
 $ git diff no_good.js
@@ -423,14 +429,14 @@ index 2eadcbe..88c7436 100644
 +console.log(bar);
 ```
 
-これで大雑把エンジニアへのストレスから解放されそうです。
+これでチーム内の大雑把エンジニアへのストレスから解放されそうです。
 
 ここで一点問題があります。`warning`はfixされないということです。この例でいうと、`console.log(...)`はそのまま残っており、warningが表示されます。
 
 これは[no-console](https://eslint.org/docs/rules/no-console)というルールで、Browser環境で実行されるJavascriptのためのルールになっており、Nodejs環境においてはdisableにしても問題ない旨が記載されています。
 
-> **When Not To Use It**  
-If you're using Node.js, however, console is used to output information to the user and so is not strictly used for debugging purposes. If you are developing for Node.js then you most likely do not want this rule enabled.  
+> **When Not To Use It**
+If you're using Node.js, however, console is used to output information to the user and so is not strictly used for debugging purposes. If you are developing for Node.js then you most likely do not want this rule enabled.
 
 ドキュメントに従い以下の1行をconfigに追加することで`diabled`にすることは可能です。
 
@@ -450,7 +456,7 @@ index e796b06..c051fae 100644
 ```
 
 が。ここからは好みにもよりますが、個人的にはこれは`disabled`にすべきではないと思っています。理由は2点あります。
-1. `console.log(...)`はjavascriptにおける従来からのprint debugの手法であるため、開発者のdebug目的なのか、アプリケーションとしての適切なアウトプットなのかが区別できなくなる
+1. `console.log(...)`はjavascriptにおける従来からのprint debugの手法であるため、debug目的なのか、アプリケーションとしての適切なアウトプットなのかが区別できなくなる
 2. FrontendのJavascriptでは禁止することになるため、極力console.logを使わない習慣を開発者につけさせる
 
 1番でいえば、開発者のprint debugコードが残っており本番環境で個人情報をログに書きこんでしまった。といった事故を多少なりと軽減することができます。
@@ -469,7 +475,7 @@ exports.error = (msg) => console.error(msg);
 
 ```
 
-`no_good.js`を作成した`lib/logger.js`を使うように変更。
+前述の`no_good.js`を作成した`lib/logger.js`を使うように変更。
 ```js{1,5}
 const logger = require('./lib/logger');
 
@@ -495,7 +501,7 @@ index a159f7d..70764a8 100644
 
 ```
 
-改めてESLintを実行すると、以下のように明示的ににloggerを使っていない(print debugの可能性が高い)コードが混入したとしてwarningを吐くことができます。終了コードも0以外になるため、CICD環境が整っている場合そこで塞き止めることができます。
+改めてESLintを実行すると、以下のように明示的ににloggerを使っていない(print debugの可能性が高い)コードが混入した場合warningを吐くことができます。終了コードも0以外になるため、CICD環境が整っている場合そこで塞き止めることができます。
 
 ```bash
 $ npx eslint . --ext .js
@@ -562,9 +568,9 @@ index e796b06..037b4bf 100644
 ```
 
 ### Conventional Commitsでコミットメッセージ体系化する
-[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)に仕様が展開されていますが、同仕様に従うことで関連ツール群が利用できます。とりわけ[conventional-changelog-cli](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)は、メッセージのLintをしてくれつつ、GitとコミットとGitのタグをベースにCHANGELOGを自動で作成してくれる便利ツールです。
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)に仕様が展開されていますが、同仕様に従うことで関連ツール群が利用できます。とりわけ[conventional-changelog-cli](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)は、コミットメッセージのLintをしてくれつつ、GitとコミットとGitのタグをベースにCHANGELOGを自動で作成してくれる便利ツールです。
 
-`type`、`scope`などある程度自由度がある項目があるので、具体仕様として[Angularの規約](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)の利用をお勧めします。
+ [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)はあくまで仕様で、`type`、`scope`などある程度自由度がある項目があるので、具体仕様として[Angularの規約](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)の利用をお勧めします。
 
 #### CHANGELOGの作成
 [conventional-changelog-cli](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)でCHANGELOGを生成する流れを説明します。
@@ -674,7 +680,7 @@ $ npx conventional-changelog -p angular -i CHANGELOG.md -s -r 2
 
 <<< @/3code-tech-blog/docs/sample-code/tech/javascript/nodejs-development/.commitlintrc.js{9}
 
-ハイライトの箇所に、[scope](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#scope)の文字列を記載することで、プロジェクトで定義したスコープもLintにかけることが可能です。
+ハイライトの箇所に、[scope](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#scope)の文字列を記載することで、プロジェクトで定義したscopeもLintにかけることが可能です。
 
 CLIでコミットmessageのフォーマットチェックを実行してみます。
 
@@ -692,21 +698,21 @@ $ echo "faet: description" | npx commitlint
 ```
 
 #### どの程度のレベル感で厳守すべきか
-[FAQ](https://www.conventionalcommits.org/en/v1.0.0/#how-should-i-deal-with-commit-messages-in-the-initial-development-phase)にも記載がありますが、開発初期から取り入れるべきルールです。日々実行することで、慣れ親しむことができます。OSSでも採用しているプロジェクトが増えているので、教育コスト分のリターンはあると考えます。
+[FAQ](https://www.conventionalcommits.org/en/v1.0.0/#how-should-i-deal-with-commit-messages-in-the-initial-development-phase)にも記載がありますが、開発初期から取り入れるべきルールです。日々実行することで慣れ親しむことができます。OSSでも採用しているプロジェクトが増えているので、教育コスト分のリターンはあると考えます。
 
-> **How should I deal with commit messages in the initial development phase?**  
+> **How should I deal with commit messages in the initial development phase?**
 We recommend that you proceed as if you’ve already released the product. Typically somebody, even if it’s your fellow software developers, is using your software. They’ll want to know what’s fixed, what breaks etc.
 
-とはいえ、コミットメッセージを毎回考えるのはToo matchになりかねません。同じく[FAQ](https://www.conventionalcommits.org/en/v1.0.0/#do-all-my-contributors-need-to-use-the-conventional-commits-specification)にあるように、すべての開発者が実施する必要はなく、本流ブランチへのマージをするリードの責務のする。というワークフローも考えれます。こちらはGitのブランチ戦略や、マージストラテジーと関連するので、プロジェクトの特性にあわせて最適な回答を探す必要があります。
+とはいえ、コミットメッセージを毎回考えるのは高コストになりかねません。同じく[FAQ](https://www.conventionalcommits.org/en/v1.0.0/#do-all-my-contributors-need-to-use-the-conventional-commits-specification)にあるように、すべての開発者が実施する必要はなく、本流ブランチへのマージをするリードの責務とする。というワークフローも考えれます。こちらはGitのブランチ戦略や、マージストラテジーと関連するので、プロジェクトの特性にあわせて最適な解を探す必要があります。
 
-> **Do all my contributors need to use the Conventional Commits specification?**  
+> **Do all my contributors need to use the Conventional Commits specification?**
 No! If you use a squash based workflow on Git lead maintainers can clean up the commit messages as they’re merged—adding no workload to casual committers. A common workflow for this is to have your git system automatically squash commits from a pull request and present a form for the lead maintainer to enter the proper git commit message for the merge.
 
 
 
 
 ### Git Hookにより自動チェック
-ここまでコード、Gitコミットのフォーマットを定義し、Linterの設定も行ってきました。CIプロセスに統合するのはもちろんですが、CIの結果を待っているようでは生産スピートが上がりません。「必ずコミット前に〇〇のコマンドを実行してください」などと声をかけ続けるのも精神衛生上よくないので、よりシステマティックに水際対策を入れていきます。
+ここまでコード、Gitコミットmessageのフォーマットを定義し、それぞれのLinterの設定を行ってきました。CIプロセスに統合するのはもちろんですが、いちいちgitをpushし、CIの結果を待っているようでは生産スピートが上がりません。「必ずコミット前に〇〇のコマンドを実行してください」などと声をかけ続けるのも精神衛生上よくないので、よりシステマティックに水際対策を入れていきます。
 
 * [husky](https://github.com/typicode/husky)によるGitアクティビティのHookを導入し
 * [lint-staged](https://github.com/okonet/lint-staged)により、Lint対象をGit Stageにいるファイルに限定します
@@ -719,11 +725,11 @@ $ yarn add -D husky lint-staged
 
 package.jsonに設定を追加します。
 
-`$ git commit`時にESLintで自動fixをかけ、かつcommit messageにlintを自動でかけます。
+`$ git commit`時にESLintで自動fixをかけ、かつコミット messageにlintを自動でかけます。
 ```json
 // package.json(中略)
 ...
-  
+
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
@@ -812,7 +818,7 @@ husky > commit-msg (node v10.19.0)
  1 file changed, 1 insertion(+)
 ```
 
-こちらもConventional Commitsに違反した場合エラーに倒してくれています。
+こちらもConventional Commitsに違反した場合、コミットを中断しエラーに倒してくれています。
 
 補足として、Jestでの自動テストもあわせて実行するため、以下の設定を加えています。
 
@@ -882,4 +888,4 @@ Cannot find name 'expect'.
 
 
 ## Conclusion
-本記事では**2020年版 Nodejs ミニマム開発アーキ決定版**と題打って、網羅的かつ実用的な開発アーキを紹介しました。更にCIやインテグレーションテストなど本質的ではない作業はコンピュータに任せ、人間がやるべき仕事に集中できる環境を作っていきましょう！
+本記事では**2020年版 Nodejs ミニマム開発アーキ決定版**と題打って、網羅的かつ実用的な開発アーキを紹介しました。本質的ではない作業はコンピュータに任せ、人間がやるべき仕事に集中できる環境を作っていきましょう！

@@ -24,7 +24,64 @@ for (let [key, value] of Object.entries(obj)) {
   ...
 }
 ```
+::: details access nested object key without catching the ReferenceError that intermediate key is undefined
+This snippet use [loadash.get](https://lodash.com/docs/#get) function.
+
+```
+const _ = require('lodash');
+
+const nested = {
+  'a': 1,
+  'b': {
+    'c': 2,
+    'd': [3, 4 ,5]
+  },
+};
+
+console.log(_.get(nested, 'a'));
+// => 1
+console.log(_.get(nested, 'b.d[1]'));
+// => 4
+console.log(_.get(nested, 'e.f.g'));
+// => undefined (not ReferenceError: e is not defined)
+console.log(_.get(nested, 'e.f.g', 'default'));
+// => with default value
+```
 :::
+
+::: details checks if values is an empty object, array, collection, or set.
+This snippet use [lodash.#isEmpty](https://lodash.com/docs/#isEmpty) function.
+
+```
+const _ = require('lodash');                                                                                                                                                                                                              console.log(_.isEmpty({}));
+// => true
+console.log(_.isEmpty([]));
+// => true
+console.log(_.isEmpty(undefined));
+// => true
+console.log(_.isEmpty(null));                                                                                        // => true
+console.log(_.isEmpty(''));
+// => true
+console.log(_.isEmpty(0));
+// => true
+```
+:::
+
+::: moment with time-zone
+This snippet use [moment-timezone](https://momentjs.com/timezone/) npm module.
+
+```
+const moment = require('moment');
+const momentTimezone = require('moment-timezone');
+
+// UTC
+console.log(moment().format('YYYY-MM-DD HH:mm'));
+//=>  2021-02-16 01:49
+
+// JST
+console.log(momentTimezone().tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm'));
+//=> 2021-02-16 10:49
+```
 
 ## One-Liner
 ::: details Rscript
