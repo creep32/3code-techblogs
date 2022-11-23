@@ -9,7 +9,7 @@
   "author": "Shintaro Kurihara",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "chalk": "^3.0.0",
     "cli-table": "^0.3.1",
     "commander": "^5.0.0",
