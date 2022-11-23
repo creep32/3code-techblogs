@@ -10,7 +10,7 @@ description: 筆者プロフィールとブログの説明
 
 # プロフィール
 ## 筆者について
-こんにちは。栗原真太郎です。
+こんにちは。くりてぃふぁい👾です。
 
 WEB系ベンチャー企業2社を経て、現在外資系ITコンサルティングファームでアーキテクトとして従事しています。WEBアプリケーションエンジニアとして10年以上のキャリアを積んできましたが、どうすれば品質と生産性を最大化できるのかを考え続けた結果、開発者エクスペリエンスの重要性を強く感じるようになってきました。私自身はバックエンドの開発を主に、インフラ、クラウドコンピューティング、DevOps系ツールの導入など、WEBアプリケーションの構築に必要なアクティビティを業務、個人での開発を通じて経験してきました。そこに生産性最優先のベンチャー企業での経験と、エンタープライズクオリティを求められるシステムインテグレーターとしての経験をあわせ、多角的な視点で開発者エクスペリエンスを最大化するプラクティスを情報発信しています。技術に特化した記事だけでなく、受託開発の改善すべき点についても言及していくので、開発者だけでなく、システム開発に関わる方全般に少しでも価値ある情報が発信できれば幸いです。
 
@@ -70,6 +70,6 @@ PUNK ROCKは文化的要素、精神的な要素、音楽的な要素とそれ�
 
 最後にこのプログのスリーコードなテーマソーングのリンクを貼って終わりたいと思います。拝読ありがとうございます。
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TYh1lRR1m6Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/268C3N2dDYk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 

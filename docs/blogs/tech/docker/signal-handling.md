@@ -298,7 +298,7 @@ USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 乱暴な結論でいうと、docker runをするときは、とりあえず`--init`オプションを付与する。と考えて問題なさそうです。
 
 ### Alternative Patterns
-もっと簡単にSignalを伝搬んする方法として、`fork`せずに`exec`で親プロセスを置き換えてしまう。というパターンがあります。これであればShellがSignalをQueueすることなど考慮せず、Signalをダイレクトにdocker run プロセスに送ることが可能です。
+もっと簡単にSignalを伝搬する方法として、`fork`せずに`exec`で親プロセスを置き換えてしまう。というパターンがあります。これであればShellがSignalをQueueすることなど考慮せず、Signalをダイレクトにdocker run プロセスに送ることが可能です。
 
 ```bash{5}
 # execコマンドでdocker runを実行
@@ -326,7 +326,7 @@ USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 
 ## Conclusion
 本記事ではdocker runを使うときのSignal HandlingのBest Practiceを解説しました。
-Saas、サーバレス、ついには`No Code`の波まで押し寄せて来ていますが、低レイヤーの知識を学ぶことは改めて重要であると考えさせられた検証でした。
+SaaS、サーバレス、ついには`No Code`の波まで押し寄せて来ていますが、低レイヤーの知識を学ぶことは改めて重要であると考えさせられた検証でした。
 
 少しでも読者の皆様の参考になれば幸いです。
 

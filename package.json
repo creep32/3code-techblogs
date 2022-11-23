@@ -2,8 +2,8 @@
   "name": "3code-tech-blog",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:creep32/3code-tech-blog.git",
-  "author": "Shintaro Kurihara <kuri.creep.kuri@gmail.com>",
+  "repository": "git@github.com:kuritify/3code-tech-blog.git",
+  "author": "Shintaro Kurihara <shintaro.kurihara@3code.dev>",
   "license": "MIT",
   "scripts": {
     "precommit": "lint-staged",
