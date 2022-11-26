@@ -67,7 +67,7 @@ console.log(_.isEmpty(0));
 ```
 :::
 
-::: moment with time-zone
+::: details moment with time-zone
 This snippet use [moment-timezone](https://momentjs.com/timezone/) npm module.
 
 ```
@@ -82,6 +82,7 @@ console.log(moment().format('YYYY-MM-DD HH:mm'));
 console.log(momentTimezone().tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm'));
 //=> 2021-02-16 10:49
 ```
+:::
 
 ## One-Liner
 ::: details Rscript
@@ -103,8 +104,16 @@ $ seq 1 10 | docker run --rm -i r-base Rscript -e 'round(sd (as.numeric (readLin
 :::
 
 
-
 ## Linux
+
+::: details flock (Manage Lock)
+```sh
+# flock [--timeout nn(sec) lock-file command...
+flock --timeout 60 "/tmp/lock-file.lock" sleep 120;
+```
+:::
+
+
 ::: details tail and head
 `tail` `-n, --lines=K`
 
